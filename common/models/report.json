@@ -15,7 +15,7 @@
         "precision": 10,
         "scale": 0,
         "mysql": {
-          "columnName": "id",
+          "columnName": "idreport",
           "dataType": "int",
           "dataLength": 11,
           "dataPrecision": 10,
@@ -85,6 +85,22 @@
               "dataScale": 0,
               "nullable": "N"
             }
+        },
+
+        "clientId": {
+          "type": "Number",
+          "required": true,
+          "length": 11,
+          "precision": 10,
+          "scale": 0,
+          "mysql": {
+            "columnName": "id_client",
+            "dataType": "int",
+            "dataLength": 11,
+            "dataPrecision": 10,
+            "dataScale": 0,
+            "nullable": "N"
+          }
         }
     }
 }

@@ -1,81 +1,69 @@
+var app = require('../../server/server')
 module.exports = function(Report) {
-    Report.remoteMethod(
-        'getNameProject',
-        {
-            description: 'get name Project like -> Sistem Integrasi',
-            accepts: [
-                { arg: 'nameproject', type: 'string'}
-            ],
-            returns:{
-                arg: 'res', type:'object', root: true
-            },
-            http: { path: '/getNameProject', verb: 'get' }
-        }
-    );
+	//create path
+	Report.remoteMethod(
+		'getById',
+		{
+			description: 'get id  like -> Number',
+			accepts: [
+				{arg: 'Id', type: 'string'}
+			],
+			returns: {
+				arg: 'res',type: 'object', root: true		
+			},
+			http: { path: '/getById', verb: 'get'}
+		}
+	);
+//promise untuk menghilangkan asyncronus
+//reject, resolve adalah annotation
 
-    Report.getNameProject = function(nameproject, callback){
-        new Promise(function(resolve, reject){
-            var filter = {
-                where: {
-                    nama_project : {
-                        like : nameproject
-                    }
-                }
-            }
-            Report.find(filter, function(err, result){
-                if(err) reject (err)
-                if(result === null){
-                    err = new Error ("Nama Project Tidak Dapat Ditemukan")
-                    err.statusCode = 404
-                    reject (err)
-                }
-                resolve(result)
-            })
-        }).then(function(res){
-            if (!res) callback (err)
-            return callback (null, res)
-        }).catch(function(err){
-            callback(err);
-        });
-    }
+	Report.getById = function(id, callback){
+		new Promise(function(resolve, reject){
 
-    Report.remoteMethod(
-        'getSubject',
-        {
-            description: 'get Subject like -> Trouble',
-            accepts: [
-                { arg: 'isisubject', type: 'string'}
-            ],
-            returns:{
-                arg: 'res', type:'object', root: true
-            },
-            http: { path: '/getSubject', verb: 'get' }
-        }
-    );
+			var filter = {
+				where : {
+					id : {
+						like : id
+					}
+				}
+			}
+			Report.find(filter, function(err, result){
+				if (err) reject (err)
+					if (result === null) {
+						err = new Error('Cannot find that name')
+						err.statusCode = 404
+						reject(err)
+					}	
 
-    Report.getSubject = function(isisubject, callback){
-        new Promise(function(resolve, reject){
-            var filter = {
-                where: {
-                    subject : {
-                        like : isisubject
-                    }
-                }
-            }
-            Report.find(filter, function(err, result){
-                if(err) reject (err)
-                if(result === null){
-                    err = new Error ("Subject Tidak Dapat Ditemukan")
-                    err.statusCode = 404
-                    reject (err)
-                }
-                resolve(result)
-            })
-        }).then(function(res){
-            if (!res) callback (err)
-            return callback (null, res)
-        }).catch(function(err){
-            callback(err);
-        });
-    }
-};
+					resolve(result)
+			})
+		}).then(function(res){
+			var client = app.models.Client
+			
+				
+			var clientId = res[0].clientId
+			
+			var filter = {
+				where : {
+					id : clientId
+				}
+			}
+			// console.log(filter)
+			client.find(filter, function(err, resclient){
+				if (err) return (err)
+				if (resclient === null) {
+					err = new Error('Cannot find that name')
+					err.statusCode = 404
+					return(err)
+				}	
+
+				// console.log('2', resclient
+				res[0].client = resclient[0]
+
+				return callback(null,res)
+			})
+		}).catch(function(err){
+			callback (err);
+		})	
+	}
+}
