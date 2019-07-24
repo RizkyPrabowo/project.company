@@ -1,0 +1,90 @@
+{
+    "name": "Client",
+    "options": {
+      "idInjection": true,
+      "mysql": {
+        "schema": "loopback-example-mysql",
+        "table": "client"
+      }
+    },
+    "properties": {
+      "id": {
+        "type": "Number",
+        "required": true,
+        "length": 11,
+        "precision": 10,
+        "scale": 0,
+        "mysql": {
+          "columnName": "id",
+          "dataType": "int",
+          "dataLength": 11,
+          "dataPrecision": 10,
+          "dataScale": 0,
+          "nullable": "N"
+        }
+      },
+
+      "nama_client": {
+          "type": "String",
+          "required": true,
+          "length": 100,
+          "precision": 10,
+          "scale": 0,
+          "mysql": {
+            "columnName": "nama_client",
+            "dataType": "varchar",
+            "dataLength": 100,
+            "dataPrecision": 10,
+            "dataScale": 0,
+            "nullable": "N"
+          }
+        },
+
+        "project": {
+            "type": "String",
+            "required": true,
+            "length": 100,
+            "precision": 10,
+            "scale": 0,
+            "mysql": {
+              "columnName": "project",
+              "dataType": "varchar",
+              "dataLength": 100,
+              "dataPrecision": 10,
+              "dataScale": 0,
+              "nullable": "N"
+            }
+          },
+
+          "project_manager": {
+            "type": "String",
+            "required": true,
+            "length": 50,
+            "precision": 10,
+            "scale": 0,
+            "mysql": {
+              "columnName": "project_manager",
+              "dataType": "varchar",
+              "dataLength": 50,
+              "dataPrecision": 10,
+              "dataScale": 0,
+              "nullable": "N"
+            }
+        },
+        "lokasi_project": {
+            "type": "String",
+            "required": true,
+            "length": 50,
+            "precision": 10,
+            "scale": 0,
+            "mysql": {
+              "columnName": "lokasi_project",
+              "dataType": "varchar",
+              "dataLength": 50,
+              "dataPrecision": 10,
+              "dataScale": 0,
+              "nullable": "N"
+            }
+        }
+    }
+}
